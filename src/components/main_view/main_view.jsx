@@ -3,6 +3,8 @@ import React from 'react';
 import {MovieCard} from '../movie_card/movie_card';
 import{MovieView} from '../movie_view/movie_view';
 
+import Row from 'react-bootstrap/Row'; 
+import Col from 'react-bootstrap/Col';
 
 export class MainView extends React.Component {
     constructor(){
@@ -33,10 +35,22 @@ export class MainView extends React.Component {
         return (
             <div className = "main-view">
                 { selectedMovie
-                    ? <MovieView movieData = {selectedMovie} onBackClick = {newSelectedMovie =>{ this.setSelectedMovie(newSelectedMovie);}}/>
-                    : movies.map(movie => (
-                        <MovieCard key = {movie._id} movieData = {movie} onMovieClick = {(movie) => {this.setSelectedMovie (movie)}} />
-                    ))
+                    ? (
+                        <Row className = "justify-content-md-center">
+                            <Col md = {8}>
+                                <MovieView movieData = {selectedMovie} onBackClick = {newSelectedMovie =>{ this.setSelectedMovie(newSelectedMovie);}}/>
+                            </Col>
+                        </Row>
+                    )
+                    : (
+                        <Row className = "justify-content-md-center">
+                            {movies.map(movie => (
+                                <Col md = {3}>
+                                    <MovieCard key = {movie._id} movieData = {movie} onMovieClick = {(movie) => {this.setSelectedMovie (movie)}} />
+                                </Col>
+                            ))}
+                        </Row>
+                    )
                 }        
             </div>        
         );
