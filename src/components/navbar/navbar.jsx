@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './navbar.scss';
 
 import {Container, Nav, Navbar, Button} from 'react-bootstrap';
+import {connect} from 'react-redux';
 
 export function Navbar ({user}) {
     
@@ -20,10 +21,7 @@ export function Navbar ({user}) {
             return false;
         }
     };
-
-
     
-
     return(
         <Navbar className = "main-nav" sticky = "top" bg = "dark" expand = "lg" variant = 'dark'>
             <Container>
@@ -46,3 +44,12 @@ export function Navbar ({user}) {
         </Navbar>
     );
 };
+
+let mapStateToProps = (state) => {
+    return {
+        user: state.user,
+        movies: state.movies,
+    };
+};
+
+export default connect(mapStateToProps) (Navbar);

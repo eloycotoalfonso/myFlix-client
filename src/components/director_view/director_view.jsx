@@ -1,13 +1,14 @@
 import React from 'react';
 import './director_view.scss'
+import {connect} from 'react-redux';
 
 
 import {Container, Row, Col, Button} from 'react-bootstrap';
 
-export function DirectorView (props) {
+export function DirectorView (director, onBackClick) {
     // console.log(props)
-    const {director, onBackClick} = props;
-    console.log("you are in the director view");
+    // const {director, onBackClick} = props;
+    // console.log("you are in the director view");
     // console.log(director);
     
     return(
@@ -32,3 +33,12 @@ export function DirectorView (props) {
 
     );
 }
+
+const mapStateToProps = (state) =>{
+    return{
+        movies: state.movies,
+        user:state.user
+    };
+};
+
+export default connect (mapStateToProps) (DirectorView)

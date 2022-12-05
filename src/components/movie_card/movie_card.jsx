@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -33,3 +34,12 @@ MovieCard.propTypes = {
     }).isRequired,
     // onMovieClick: PropTypes.func.isRequired
 };
+
+const mapStateToProps = (state) =>{
+    return{
+        movies: state.movies,
+        user: state.user
+    };
+};
+
+export default connect (mapStateToProps) (MovieCard);

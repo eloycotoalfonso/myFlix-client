@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import propTypes from 'prop-types';
 import axios from 'axios';
 import './login_view.scss';
+import {connect} from 'react-redux';
 
 import {Form, Button, CardGroup, Card, Container, Col, Row} from 'react-bootstrap';
 
@@ -46,7 +47,7 @@ export function LoginView (props){
             })
             .then(response =>{
                 const data = response.data;
-                console.log(props);
+                // console.log(props);
                 props.onLoggedIn(data);    
             }).catch(e =>{
                 console.log('no such user');
@@ -119,3 +120,10 @@ LoginView.propTypes = {
         password: propTypes.string.isRequired
     }),
 };
+
+const mapDispatchToProps = (dispatch) =>({
+    handleSubmit: (event) =>
+        dispatch(handleSubmit(event))
+});
+
+export default connect(null, mapDispatchToProps) (LoginView);

@@ -1,11 +1,12 @@
 import React from 'react';
 
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import {Container, Row, Col, Button} from 'react-bootstrap';
 import axios from 'axios';
 
-export class MovieView extends React.Component {
+class MovieView extends React.Component {
 
     //The three following functions:
     // keypressCallback
@@ -40,8 +41,8 @@ export class MovieView extends React.Component {
     }
 
     render(){
-        const { movieData, onBackClick } = this.props;
-        console.log(movieData);
+        const { movieData, onBackClick, addToFavs}  = this.props;
+        // console.log(movieData);
         return(
             <Container className = "movie-view">
                 <Row>
@@ -73,7 +74,7 @@ export class MovieView extends React.Component {
                                 {/* <Button variant = "link">See more</Button> */}
                             </Link>
                         </div>
-                        <Button className = "add-to-favorites" variant = "secondary" onClick ={() =>{this.addToFavs(movieData._id)}}>Add to Favorites</Button>
+                        <Button className = "add-to-favorites" variant = "secondary" onClick ={() =>{addToFavs(movieData._id)}}>Add to Favorites</Button>
                         <Button style = {{marginLeft: "10px"}} onClick = {() =>{ onBackClick(null); }}> Back to movies </Button>
                             
                     </Col>
@@ -83,3 +84,16 @@ export class MovieView extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) =>{
+    return{
+        movies: state.movies,
+        user: state.user
+    };
+};
+
+const mapDispatchToProps = (dispatch) =>({
+    addToFavs: (event) => dispatch(addFav(event)),
+});
+
+export default connect (mapStateToProps, mapDispatchToProps) (MovieView);

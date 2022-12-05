@@ -2,9 +2,11 @@
 import React from 'react';
 import axios from 'axios';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
+
 
 // #0
-import{ setMovies } from '../../actions/actions';
+import{ setMovies, setUser, addFav, removeFav } from '../../actions/actions';
 
 // #1 The rest ofcompnents import statemenst but without the MovieCard's because it will be imported and used in the MoviesList component rather than in here.
 import MoviesList from '../movies_list/movies_list';
@@ -82,8 +84,7 @@ class MainView extends React.Component {
         });
     }
 
-    getMovies(token) {
-       
+    getMovies(token) {       
         axios.get('https://new-super-flix.herokuapp.com/movies', {
             headers: {Authorization: `Bearer ${token}`}
         })
@@ -99,8 +100,8 @@ class MainView extends React.Component {
     render() {
         //Selected movies and register will be deprecated when using client side routing
         // const {movies, selectedMovie, user, register} = this.state;
-        let {movies} = this.props;
-        let {user, selectedMovie, register} = this.state;
+        let {movies, user} = this.props;
+        const {username} = user.username;
 
         
         return (
@@ -111,7 +112,7 @@ class MainView extends React.Component {
                         <Route exact path = "/" render = {() =>{
                             //If there is no user, the LoginView is rendered. If there is a user logged in, the user details are passsed as a prop to the loginView
                             if(!user) return <Col>
-                                <LoginView movies = {movies} onLoggedIn = {user => this.onLoggedIn(user)}/>
+                                <LoginView onLoggedIn = {user => this.onLoggedIn(user)}/>
                             </Col>
                             //Before the movies have been loaded
                             if(movies.length === 0) return <div className = "main-view" />;
@@ -168,4 +169,4 @@ let mapStateToProps = state => {
     return {movies: state.movies}
 }
 
-export default connect (mapStateToProps, {setMovies} )(MainView);
+export default connect (mapStateToProps, {setMovies, setUser, addFav, removeFav} )(MainView);

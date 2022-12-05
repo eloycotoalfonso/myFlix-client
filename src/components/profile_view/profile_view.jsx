@@ -4,12 +4,15 @@ import axios from 'axios';
 import './profile_view.scss'
 import UserInfo from './user_info';
 import ProfileUpdate from './profile_update';
+import {connect} from 'react-redux';
+import {setUser, updateUser} from '../../actions/actions';
 
 import { MovieCard } from '../movie_card/movie_card';
 
 import {Container, Form, Card, CardGroup, Row, Col, Button} from 'react-bootstrap';
+import { setUser, updateUser } from '../../actions/actions';
 
-export class  ProfileView extends React.Component{
+class  ProfileView extends React.Component{
     constructor(){
 
         super()
@@ -321,8 +324,8 @@ export class  ProfileView extends React.Component{
                                                 onChange = {(e) => this.setBirth(e.target.value)}
                                                 />
                                             </Form.Group>
-                                            <Button style = {{marginTop: '10px'}} variant = "primary" type = "submit" onClick = {this.handleSubmit}> Update profile </Button>
-                                            <Button style = {{marginTop: "10px", marginLeft: "30px"}} variant = "danger" onClick = {this.deleteUser} >Delete User </Button>
+                                            <Button style = {{marginTop: '10px'}} variant = "primary" type = "submit" onClick = {handleSubmit}> Update profile </Button>
+                                            <Button style = {{marginTop: "10px", marginLeft: "30px"}} variant = "danger" onClick = {deleteUser} >Delete User </Button>
                                         </Form>
                                     
                                     </Card.Body>
@@ -337,7 +340,7 @@ export class  ProfileView extends React.Component{
                         {favMoviesList.map(movie => (
                             <Col key = {movie.id} md = {3}>
                                 <MovieCard key = {movie.id} movieData = {movie}  onMovieClick = {(movie) => {this.setSelectedMovie (movie)}}/>
-                                <Button className="remove-button" variant="secondary" onClick={()=>{this.RemoveFavorite(movie._id)}}>Remove from favorites </Button>
+                                <Button className="remove-button" variant="secondary" onClick={()=>{RemoveFavorite(movie._id)}}>Remove from favorites </Button>
                             </Col>
                             
                         ))}
@@ -348,3 +351,21 @@ export class  ProfileView extends React.Component{
     }
  
 }
+
+const mapStateToProps = (state)=>{
+    return{
+        movies: state.movies,
+        user: state.user
+    };
+};
+
+const mapDispatchToProps = (dispatch) =>({
+    handleSubmit: (event) =>
+        dispatch(updateUser),
+    deleteUser:(event) =>
+        dispatch(deleteUser),
+    RemoveFavorite: (event) =>
+       dispatch(deleteFavorite(event))
+});
+
+export default connect (mapStateToProps, mapDispatchToProps) (ProfileView);

@@ -1,10 +1,10 @@
 import React from 'react';
-
+import {connect} from 'react-redux';
 
 import {Container, Row, Col, Button} from 'react-bootstrap';
 
-export function GenreView (props) {
-    const {genre, onBackClick} = props;
+export function GenreView (genre, onBackClick) {
+    // const {genre, onBackClick} = props;
     
     return(
         <Container className = "genre-view">
@@ -23,3 +23,12 @@ export function GenreView (props) {
 
     );
 }
+
+const mapStateToProps = (state) => {
+    return{
+        movies: state.movies,
+        user: state.user
+    };
+};
+
+export default connect(mapStateToProps)(GenreView);
