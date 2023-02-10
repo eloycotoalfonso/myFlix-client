@@ -3,7 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 
-import { Navigationbar } from '../navbar/navbar';
+import { Navigationbar } from '../navigationbar/navigationbar';
 import { LoginView } from '../login_view/login_view';
 import { RegistrationView } from '../registration_view/registration_view';
 import { MovieCard } from '../movie_card/movie_card';
@@ -80,14 +80,15 @@ export class MainView extends React.Component {
     getMovies(token) {
        
         axios.get('https://new-super-flix.herokuapp.com/movies', {
-        // axios.get('http://localhost:8080/movies', {
             headers: {Authorization: `Bearer ${token}`}
         })
         .then(response =>{
             //Assign the result to the state
             this.setState({
-                movies:response.data
+                movies: response.data
             });
+            // console.log('No errors loading movies');
+            // console.log(response.data);
         })
         .catch(function(error){
             console.log(error);
@@ -97,6 +98,7 @@ export class MainView extends React.Component {
     render() {
         //Selected movies and register will be deprecated when using client side routing
         const {movies, selectedMovie, user, register} = this.state;
+        console.log(this.state);
 
         
         return (

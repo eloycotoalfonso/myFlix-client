@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './navbar.scss';
+import './navigationbar.scss';
 
 import {Container, Nav, Navbar, Button} from 'react-bootstrap';
 

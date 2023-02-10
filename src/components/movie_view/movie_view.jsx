@@ -26,8 +26,7 @@ export class MovieView extends React.Component {
     addToFavs(id){
         const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
-        // const url = `https://new-super-flix.herokuapp.com/users/${user}/movies/${id}`;
-        const url = `https://localhost:8080/users/${user}/movies/${id}`;
+        const url = `https://new-super-flix.herokuapp.com/users/${user}/movies/${id}`;
 
         axios.post(url, {}, {
             headers: { Authorization: `Bearer ${token}` }
@@ -48,8 +47,8 @@ export class MovieView extends React.Component {
                 <Row>
                     <Col>
                         <div className = "movie-poster">
-                            console.log(movieData)
-                            console.log(movieData.Title)
+                            {/* console.log(movieData) */}
+                            {/* console.log(movieData.Title) */}
                             <img crossOrigin="anonymous" src = {movieData.imagePath} />
                         </div>
                         <div className = "movie-title">

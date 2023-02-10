@@ -4,6 +4,7 @@ import axios from 'axios';
 import './registration_view.scss';
 
 import {Container, Form, Card, CardGroup, Row, Col, Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 export function RegistrationView (props) {
     const [newUsername, setUsername] = useState('');
@@ -46,14 +47,13 @@ export function RegistrationView (props) {
         const isReq = validate();
         if(isReq){
             // console.log(newUsername, password, email, birth);
-            // axios.post('https://new-super-flix.herokuapp.com/users',{
-            axios.post('https://localhost:8080/users',{
+            axios.post('https://new-super-flix.herokuapp.com/users',{
 
                 username: newUsername,
                 password: password,
                 email: email,
                 birthday: birth
-            })
+            },{})
             .then(response =>{
                 const data = response.data;
                 console.log(data);
@@ -132,7 +132,11 @@ export function RegistrationView (props) {
                                         />
                                     </Form.Group>
                                     <Button style = {{marginTop: '10px'}} variant = "primary" type = "submit" onClick = {handleSubmit}> Register now</Button>
-                                    <a href = "" onClick = {props.onRegistration}> Already registered ?</a>
+                                    {/* <a href = "" onClick = {props.onRegistration}> Already registered ?</a> */}
+
+                                    <Link to = {`/`}>
+                                        <span className = "value"> Already registered?</span>
+                                    </Link>
                                 
                                 </Form>
                             

@@ -41,8 +41,7 @@ export function LoginView (props){
         if (isReq){
             // console.log(username, password);
             // Send a request to the server for authentification
-            // axios.post('https://new-super-flix.herokuapp.com/login',{
-            axios.post('http://localhost:8080/login',{      
+            axios.post('https://new-super-flix.herokuapp.com/login',{    
                 username: username,
                 password: password
             })
@@ -56,10 +55,6 @@ export function LoginView (props){
             });
         }
     };
-
-    onRegistration = (e) => {
-        props.onRegistration(e)
-    }
     
 
     /*onRegistrated(username){
@@ -103,7 +98,7 @@ export function LoginView (props){
                                     <Button style ={{marginTop: '10px'}} variant = "primary" type = "submit" onClick = {handleSubmit}> Submit </Button>
 
                                     <Link to = {`/register`}>
-                                        <span className = "value">Not registered yet??</span>
+                                        <span className = "value"> Not registered yet??</span>
                                     </Link>
                                 </Form>
                             </Card.Body>
